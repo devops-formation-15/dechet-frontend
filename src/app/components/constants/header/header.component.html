@@ -1,0 +1,161 @@
+<header class="modern-header">
+  <div class="header-backdrop"></div>
+  <nav class="modern-navbar">
+    <!-- Logo / Brand -->
+    <div class="brand-section">
+      <div class="logo-container">
+        <svg
+          class="logo-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path
+            d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="brand-name">baladiya</span>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-center">
+      <app-nav></app-nav>
+    </div>
+
+    <!-- Right Section: Auth & Profile -->
+    <div class="nav-actions">
+      <div *ngIf="!isAuthenitcatedUser; else authTemplate" class="auth-buttons">
+        <button (click)="login()" class="btn-secondary">
+          <svg
+            class="btn-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Login</span>
+        </button>
+        <button (click)="signUp()" class="btn-primary">
+          <span>Sign Up</span>
+          <svg
+            class="btn-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M5 12h14M12 5l7 7-7 7"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <ng-template #authTemplate>
+        <div class="profile-section" *ngIf="isAuthenitcatedUser">
+          <button class="profile-button" (click)="toggleProfileDropdown()">
+            <img
+              *ngIf="profileImage"
+              [src]="profileImage"
+              alt="Profile"
+              class="profile-avatar"
+            />
+            <div *ngIf="!profileImage" class="profile-avatar-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <svg
+              class="dropdown-arrow"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="m6 9 6 6 6-6"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+
+          <!-- Modern Dropdown -->
+          <div
+            *ngIf="isProfileDropdownOpen"
+            class="modern-dropdown profile-dropdown"
+          >
+            <div class="dropdown-header">
+              <div class="dropdown-avatar">
+                <img *ngIf="profileImage" [src]="profileImage" alt="Profile" />
+                <div *ngIf="!profileImage" class="avatar-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                      d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-content">
+              <button
+                (click)="toggleProfileDropdown(); openDialog()"
+                class="dropdown-item"
+              >
+                <svg
+                  class="item-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>Edit Profile</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button (click)="logout()" class="dropdown-item logout">
+                <svg
+                  class="item-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </nav>
+</header>

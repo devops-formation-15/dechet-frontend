@@ -1,0 +1,4 @@
+environments/environment-dev
+environments/environment-prod
+environments/*
+dist/*

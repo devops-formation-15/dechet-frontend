@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Ensure the drawer toggle is accessible */
+.drawer-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ensure drawer works on mobile */
+@media (max-width: 1023px) {
+  .drawer-toggle:checked ~ .drawer-side {
+    transform: translateX(0);
+  }
+  
+  .drawer-side {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .drawer-toggle:checked ~ .drawer-side .drawer-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

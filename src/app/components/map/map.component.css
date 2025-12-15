@@ -1,0 +1,112 @@
+/* Map Component Styling */
+:host {
+  display: block;
+}
+
+.map-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 360px; /* Map primary + sidebar */
+  gap: 20px;
+  align-items: start;
+}
+
+.map-panel {
+  min-height: 420px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.map-canvas {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+.route-sidebar {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
+  font-family: system-ui, 'Inter', sans-serif;
+}
+
+.route-header { margin-bottom: 12px; }
+.route-header h3 { margin: 0; font-weight: 700; }
+.route-header .muted { margin: 0; color: #6b7280; font-size: 0.85rem }
+
+.route-header { display:flex; justify-content:space-between; align-items:flex-start }
+.route-header-left { display:flex; flex-direction:column; gap:4px }
+.route-header-right { display:flex; align-items:center }
+.route-tag { display:inline-block; padding:6px 10px; border-radius:999px; background:#f3f4f6; border:1px solid #e5e7eb; font-weight:600; font-size:0.85rem; color:#374151 }
+.route-title { font-size:1.5rem; margin:0 }
+.status-pill { padding:6px 10px; border-radius:999px; font-weight:700; text-transform:capitalize; font-size:0.85rem }
+.status-pill.green { background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0 }
+.status-pill.orange { background:#fff7ed; color:#b45309; border:1px solid #ffedd5 }
+
+.route-card { display: flex; flex-direction: column; gap: 12px; }
+.route-top { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.route-meta div, .route-stats div { font-size: 0.95rem; color:#374151 }
+
+.vehicle-card { background:#f8fafc; padding:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; }
+.vehicle-id { color:#6b7280; font-size:0.9rem }
+.vehicle-type { font-weight:600 }
+
+.assigned-users ul { padding-left: 16px; }
+.assigned-users li { font-size:0.95rem; margin-bottom:6px }
+.assigned-users .chip { background:#d1fae5; color:#065f46; padding: 3px 8px; margin-left:8px; border-radius:9999px; font-size:0.8rem }
+
+.pickups-overview ol { padding-left: 18px; margin:0; font-size:0.92rem }
+
+/* Timeline stops */
+.stop-list { list-style: none; padding: 0 0 0 26px; margin: 0; position:relative }
+.stop-list::before { content:''; position:absolute; left: 12px; top: 12px; bottom: 12px; width:2px; background: linear-gradient(180deg, rgba(113,128,150,0.12), rgba(113,128,150,0.06)); border-radius: 2px }
+.stop-item { position: relative; display:flex; align-items:center; gap: 12px; padding: 12px 6px; border-bottom: 1px solid #f3f4f6 }
+.stop-dot { width:12px; height:12px; border-radius:999px; background:#ffffff; border: 3px solid #0ea5a0; box-shadow: 0 4px 10px rgba(14,165,160,0.08); flex-shrink:0; margin-left:-24px }
+.stop-dot.green { border-color:#10b981; box-shadow: 0 6px 12px rgba(16,185,129,0.12) }
+.stop-dot.red { border-color:#ef4444; box-shadow: 0 6px 12px rgba(239,68,68,0.10) }
+.stop-content { flex: 1 }
+.stop-meta { font-size:0.73rem; font-weight:700; color:#9ca3af; letter-spacing:0.06em }
+.stop-title { font-weight:700; color:#111827; margin-top: 3px }
+.stop-sub { font-size:0.85rem; color:#6b7280; margin-top: 3px }
+.stop-badge { background:#fff; border-radius:999px; padding:6px 8px; border:1px solid #e5e7eb; font-size:0.78rem; color:#374151 }
+
+/* Export button */
+.route-actions { margin-top: 14px; }
+.export-btn { width:100%; background: linear-gradient(90deg,#2573ee,#2d8cf6); color:#fff; padding:12px 14px; border-radius:10px; border:none; box-shadow: 0 10px 30px rgba(45,140,246,0.18); font-weight:700; font-size:1rem }
+.export-btn:hover { filter: brightness(0.97) }
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+  .map-wrapper { grid-template-columns: 1fr; }
+  .route-sidebar { order: -1; margin-bottom: 12px; }
+  .map-canvas { min-height: 360px }
+}
+
+/* Legacy marker color tweaks */
+::ng-deep .green-marker { filter: hue-rotate(90deg) saturate(150%); }
+::ng-deep .red-marker { filter: hue-rotate(340deg) saturate(200%) brightness(0.9); }
+.map-container {
+  width: 100%;
+  height: 600px;        /* or 100vh if you want full screen */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin: 20px 0;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+/* Color markers */
+::ng-deep .green-marker {
+  filter: hue-rotate(90deg) saturate(150%);
+}
+
+::ng-deep .red-marker {
+  filter: hue-rotate(340deg) saturate(200%) brightness(0.9);
+}

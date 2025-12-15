@@ -1,0 +1,441 @@
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+          <h1 class="h3 mb-1 fw-bold">Tableau de Bord</h1>
+          <p class="text-muted mb-0">Vue d'ensemble du système de gestion des déchets</p>
+        </div>
+        <button class="btn btn-primary" (click)="loadAllData()" [disabled]="isLoading">
+          <i class="bi bi-arrow-clockwise"></i>
+          Actualiser
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="card shadow-sm">
+      <div class="card-body text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-3 text-muted">Chargement des données...</p>
+      </div>
+    </div>
+  } @else if (errorMessage) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  } @else {
+    <div>
+      <!-- Key Metrics Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm h-100 border-start border-primary border-4">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
+                  <i class="bi bi-people fs-2 text-primary"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="h2 mb-0 fw-bold">{{ users.length }}</div>
+                  <div class="text-muted small">Utilisateurs</div>
+                  <div class="text-muted small mt-1">{{ activeUsersCount }} actifs</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm h-100 border-start border-success border-4">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="bg-success bg-opacity-10 rounded p-3 me-3">
+                  <i class="bi bi-truck fs-2 text-success"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="h2 mb-0 fw-bold">{{ vehicules.length }}</div>
+                  <div class="text-muted small">Véhicules</div>
+                  <div class="text-muted small mt-1">{{ availableVehiculesCount }} disponibles</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm h-100 border-start border-info border-4">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="bg-info bg-opacity-10 rounded p-3 me-3">
+                  <i class="bi bi-trash fs-2 text-info"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="h2 mb-0 fw-bold">{{ containers.length }}</div>
+                  <div class="text-muted small">Conteneurs</div>
+                  <div class="text-muted small mt-1">{{ functionalContainersCount }} fonctionnels</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm h-100 border-start border-warning border-4">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="bg-warning bg-opacity-10 rounded p-3 me-3">
+                  <i class="bi bi-exclamation-triangle fs-2 text-warning"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="h2 mb-0 fw-bold">{{ incidents.length }}</div>
+                  <div class="text-muted small">Incidents</div>
+                  <div class="text-muted small mt-1">{{ highPriorityIncidentsCount }} haute priorité</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="mb-4">
+        <h2 class="h4 fw-bold mb-4">Analyses Visuelles</h2>
+        
+        <div class="row g-4">
+          <!-- Incident Status Chart (Priority Chart with Danger Vibe) -->
+          <div class="col-lg-6">
+            <div class="card shadow-sm h-100 border-start border-danger border-4">
+              <div class="card-header bg-danger bg-opacity-10 border-bottom border-danger">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title mb-1 fw-bold text-danger">
+                      <i class="bi bi-speedometer2 me-2"></i>
+                      Niveau de Danger - Incidents
+                    </h5>
+                    <p class="text-danger small mb-0 fw-medium">Jauge de criticité - Intervention immédiate si zone rouge</p>
+                  </div>
+                  <button class="btn btn-outline-danger btn-sm" (click)="loadIncidents()" [disabled]="isLoading">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="min-height: 300px;">
+                  @if (incidentStatusChart && incidentStatusChart.series && incidentStatusChart.series.length > 0) {
+                    <apx-chart
+                      [series]="incidentStatusChart.series"
+                      [chart]="incidentStatusChart.chart"
+                      [plotOptions]="incidentStatusChart.plotOptions"
+                      [labels]="incidentStatusChart.labels"
+                      [colors]="incidentStatusChart.colors"
+                      [fill]="incidentStatusChart.fill"
+                      [responsive]="incidentStatusChart.responsive">
+                    </apx-chart>
+                  } @else {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <div class="text-center">
+                        <i class="bi bi-check-circle fs-1 text-success mb-2"></i>
+                        <p class="mb-0">Aucun incident signalé</p>
+                      </div>
+                    </div>
+                  }
+                </div>
+                <!-- Danger Level Indicator -->
+                <div class="text-center mt-3">
+                  <span class="badge {{ incidentDangerColor }} fs-6 fw-bold px-3 py-2">
+                    🚨 NIVEAU: {{ incidentDangerLevel }} ({{ incidentDangerPercentage }}%)
+                  </span>
+                </div>
+              </div>
+              <div class="card-footer bg-danger bg-opacity-5 border-top border-danger">
+                <div class="row text-center">
+                  <div class="col-2">
+                    <div class="h5 mb-0 fw-bold text-danger">{{ urgentIncidentsCount }}</div>
+                    <small class="text-danger fw-medium">Urgents</small>
+                  </div>
+                  <div class="col-2">
+                    <div class="h5 mb-0 fw-bold text-warning">{{ highPriorityIncidentsCount }}</div>
+                    <small class="text-warning fw-medium">Haute</small>
+                  </div>
+                  <div class="col-2">
+                    <div class="h5 mb-0 fw-bold text-info">{{ mediumPriorityIncidentsCount }}</div>
+                    <small class="text-info fw-medium">Moyenne</small>
+                  </div>
+                  <div class="col-2">
+                    <div class="h5 mb-0 fw-bold text-secondary">{{ lowPriorityIncidentsCount }}</div>
+                    <small class="text-secondary fw-medium">Faible</small>
+                  </div>
+                  <div class="col-2">
+                    <div class="h5 mb-0 fw-bold text-muted">{{ inProgressIncidentsCount }}</div>
+                    <small class="text-muted fw-medium">En cours</small>
+                  </div>
+                  <div class="col-2">
+                    <div class="h5 mb-0 fw-bold text-success">{{ resolvedIncidentsCount }}</div>
+                    <small class="text-success fw-medium">Résolus</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container Status Chart -->
+          <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title mb-1 fw-bold">Statut des Conteneurs</h5>
+                    <p class="text-muted small mb-0">Répartition fonctionnel / non-fonctionnel</p>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" (click)="loadContainers()" [disabled]="isLoading">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="min-height: 300px;">
+                  @if (containerStatusChart && containerStatusChart.series && containerStatusChart.series.length > 0) {
+                    <apx-chart
+                      [series]="containerStatusChart.series"
+                      [chart]="containerStatusChart.chart"
+                      [plotOptions]="containerStatusChart.plotOptions"
+                      [labels]="containerStatusChart.labels"
+                      [colors]="containerStatusChart.colors"
+                      [responsive]="containerStatusChart.responsive">
+                    </apx-chart>
+                  } @else {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <p class="mb-0">Aucune donnée disponible</p>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="card-footer bg-white border-top">
+                <div class="row text-center">
+                  <div class="col-6">
+                    <div class="h5 mb-0 fw-bold text-success">{{ functionalContainersCount }}</div>
+                    <small class="text-muted">Fonctionnels</small>
+                  </div>
+                  <div class="col-6">
+                    <div class="h5 mb-0 fw-bold text-danger">{{ nonFunctionalContainersCount }}</div>
+                    <small class="text-muted">Non-fonctionnels</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container Type Chart -->
+          <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title mb-1 fw-bold">Types de Conteneurs</h5>
+                    <p class="text-muted small mb-0">Distribution par catégorie</p>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" (click)="loadContainers()" [disabled]="isLoading">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="min-height: 300px;">
+                  @if (containerTypeChart && containerTypeChart.series && containerTypeChart.series.length > 0) {
+                    <apx-chart
+                      [series]="containerTypeChart.series"
+                      [chart]="containerTypeChart.chart"
+                      [plotOptions]="containerTypeChart.plotOptions"
+                      [dataLabels]="containerTypeChart.dataLabels"
+                      [xaxis]="containerTypeChart.xaxis"
+                      [colors]="containerTypeChart.colors"
+                      [responsive]="containerTypeChart.responsive">
+                    </apx-chart>
+                  } @else {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <p class="mb-0">Aucune donnée disponible</p>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="card-footer bg-white border-top">
+                <div class="row text-center">
+                  @for (type of containersByType | keyvalue; track type.key) {
+                    <div class="col-6 col-md-3 mb-2">
+                      <div class="h6 mb-0 fw-bold">{{ type.value }}</div>
+                      <small class="text-muted">{{ type.key }}</small>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container Fill Level Chart -->
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title mb-1 fw-bold">Niveaux de Remplissage</h5>
+                    <p class="text-muted small mb-0">Répartition par niveau de remplissage</p>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" (click)="loadContainers()" [disabled]="isLoading">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="min-height: 350px;">
+                  @if (containerFillChart && containerFillChart.series && containerFillChart.series.length > 0) {
+                    <apx-chart
+                      [series]="containerFillChart.series"
+                      [chart]="containerFillChart.chart"
+                      [plotOptions]="containerFillChart.plotOptions"
+                      [dataLabels]="containerFillChart.dataLabels"
+                      [stroke]="containerFillChart.stroke"
+                      [fill]="containerFillChart.fill"
+                      [xaxis]="containerFillChart.xaxis"
+                      [colors]="containerFillChart.colors"
+                      [markers]="containerFillChart.markers"
+                      [responsive]="containerFillChart.responsive">
+                    </apx-chart>
+                  } @else {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <p class="mb-0">Aucune donnée disponible</p>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="card-footer bg-white border-top">
+                <div class="row text-center">
+                  <div class="col-6 col-md-3">
+                    <div class="h5 mb-0 fw-bold text-success">{{ containerFillLevels.low }}</div>
+                    <small class="text-muted">Bas (&lt;40%)</small>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="h5 mb-0 fw-bold text-warning">{{ containerFillLevels.medium }}</div>
+                    <small class="text-muted">Moyen (40-69%)</small>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="h5 mb-0 fw-bold text-orange">{{ containerFillLevels.high }}</div>
+                    <small class="text-muted">Élevé (70-89%)</small>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="h5 mb-0 fw-bold text-danger">{{ containerFillLevels.critical }}</div>
+                    <small class="text-muted">Critique (≥90%)</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle Analytics Section -->
+      <div class="mb-4">
+        <h2 class="h4 fw-bold mb-4">Analyses des Véhicules</h2>
+        
+        <div class="row g-4">
+          <!-- Vehicle Status Chart -->
+          <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title mb-1 fw-bold">Statut des Véhicules</h5>
+                    <p class="text-muted small mb-0">Répartition fonctionnel / en maintenance</p>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" (click)="loadVehicules()" [disabled]="isLoading">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="min-height: 300px;">
+                  @if (vehicleStatusChart && vehicleStatusChart.series && vehicleStatusChart.series.length > 0) {
+                    <apx-chart
+                      [series]="vehicleStatusChart.series"
+                      [chart]="vehicleStatusChart.chart"
+                      [plotOptions]="vehicleStatusChart.plotOptions"
+                      [labels]="vehicleStatusChart.labels"
+                      [colors]="vehicleStatusChart.colors"
+                      [responsive]="vehicleStatusChart.responsive">
+                    </apx-chart>
+                  } @else {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <p class="mb-0">Aucune donnée disponible</p>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="card-footer bg-white border-top">
+                <div class="row text-center">
+                  <div class="col-6">
+                    <div class="h5 mb-0 fw-bold text-success">{{ availableVehiculesCount }}</div>
+                    <small class="text-muted">Fonctionnels</small>
+                  </div>
+                  <div class="col-6">
+                    <div class="h5 mb-0 fw-bold text-warning">{{ maintenanceVehiculesCount }}</div>
+                    <small class="text-muted">En Maintenance</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vehicle Type Chart -->
+          <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="card-title mb-1 fw-bold">Types de Véhicules</h5>
+                    <p class="text-muted small mb-0">Distribution par catégorie</p>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" (click)="loadVehicules()" [disabled]="isLoading">
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" style="min-height: 300px;">
+                  @if (vehicleTypeChart && vehicleTypeChart.series && vehicleTypeChart.series.length > 0) {
+                    <apx-chart
+                      [series]="vehicleTypeChart.series"
+                      [chart]="vehicleTypeChart.chart"
+                      [plotOptions]="vehicleTypeChart.plotOptions"
+                      [dataLabels]="vehicleTypeChart.dataLabels"
+                      [xaxis]="vehicleTypeChart.xaxis"
+                      [yaxis]="vehicleTypeChart.yaxis"
+                      [colors]="vehicleTypeChart.colors"
+                      [responsive]="vehicleTypeChart.responsive">
+                    </apx-chart>
+                  } @else {
+                    <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                      <p class="mb-0">Aucune donnée disponible</p>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="card-footer bg-white border-top">
+                <div class="row text-center">
+                  @for (type of vehiclesByType | keyvalue; track type.key) {
+                    <div class="col-6 col-md-4 mb-2">
+                      <div class="h6 mb-0 fw-bold">{{ type.value }}</div>
+                      <small class="text-muted">{{ type.key }}</small>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

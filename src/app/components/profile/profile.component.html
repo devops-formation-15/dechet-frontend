@@ -1,0 +1,358 @@
+<div class="profile-modal">
+  <div class="profile-header">
+    <h2 class="profile-title">
+      <svg
+        class="title-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span>Edit Profile</span>
+    </h2>
+    <button
+      type="button"
+      class="close-button"
+      (click)="onClose()"
+      aria-label="Close"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path
+          d="M18 6L6 18M6 6l12 12"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+    <!-- Profile Image Section -->
+    <div class="image-section">
+      <div class="image-wrapper">
+        <div class="image-container" [class.loading]="isLoading">
+          <img
+            [src]="selectedImage"
+            alt="Profile Picture"
+            class="profile-image"
+            loading="lazy"
+          />
+          <div class="image-overlay">
+            <label for="file-input" class="image-upload-label">
+              <svg
+                class="upload-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span>Change Photo</span>
+            </label>
+            <input
+              type="file"
+              id="file-input"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+              (change)="onFileSelected($event)"
+              class="file-input"
+            />
+          </div>
+          <div *ngIf="isLoading" class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+        </div>
+        <button
+          *ngIf="
+            selectedImage && selectedImage !== '/assets/images/userimage.png'
+          "
+          type="button"
+          class="remove-image-btn"
+          (click)="removeImage()"
+          title="Remove image"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="image-info">
+        <p class="image-requirements">
+          Upload a profile picture (JPEG, PNG, WebP)
+        </p>
+        <p class="image-size">Maximum size: 5MB</p>
+      </div>
+      <div *ngIf="imageError" class="error-message image-error">
+        <svg
+          class="error-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <circle cx="12" cy="12" r="10" stroke-width="2" />
+          <path
+            d="M12 8v4M12 16h.01"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>{{ imageError }}</span>
+      </div>
+    </div>
+
+    <!-- Form Fields -->
+    <div class="form-grid">
+      <!-- Username Field (Read-only) -->
+      <div class="form-group">
+        <label for="userName" class="form-label">
+          <svg
+            class="label-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Username</span>
+        </label>
+        <input
+          type="text"
+          id="userName"
+          formControlName="userName"
+          class="form-input"
+          [class.read-only]="profileForm.get('userName')?.disabled"
+          [readonly]="profileForm.get('userName')?.disabled"
+          placeholder="Enter username"
+        />
+        <p class="field-hint" *ngIf="profileForm.get('userName')?.disabled">
+          Username cannot be changed
+        </p>
+      </div>
+
+      <!-- Email Field (Read-only) -->
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <svg
+            class="label-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="m22 6-10 7L2 6"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Email</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-input"
+          [class.read-only]="profileForm.get('email')?.disabled"
+          [readonly]="profileForm.get('email')?.disabled"
+          placeholder="Enter email address"
+        />
+        <p class="field-hint" *ngIf="profileForm.get('email')?.disabled">
+          Email cannot be changed
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="role" class="form-label required">
+          <svg
+            class="label-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span> user role</span>
+        </label>
+        <input
+          type="text"
+          id="role"
+          formControlName="role"
+          class="form-input"
+          [class.error]="
+            profileForm.get('role')?.touched && profileForm.get('role')?.invalid
+          "
+          placeholder="Enter your user role"
+        />
+        <p *ngIf="getErrorMessage('role')" class="error-message">
+          {{ getErrorMessage("role") }}
+        </p>
+      </div>
+
+      <!-- Driver toggle -->
+      <div class="form-group">
+        <label for="driver" class="form-label">Driver</label>
+        <div class="input-wrapper">
+          <input
+            type="checkbox"
+            id="driver"
+            formControlName="driver"
+            class="form-input"
+          />
+          <span class="field-hint" style="margin-left: 0.5rem"
+            >Assign driver role to this user</span
+          >
+        </div>
+      </div>
+
+      <!-- First Name Field -->
+      <div class="form-group">
+        <label for="firstName" class="form-label required">
+          <svg
+            class="label-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>First Name</span>
+        </label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          class="form-input"
+          [class.error]="
+            profileForm.get('firstName')?.touched &&
+            profileForm.get('firstName')?.invalid
+          "
+          placeholder="Enter your first name"
+        />
+        <p *ngIf="getErrorMessage('firstName')" class="error-message">
+          {{ getErrorMessage("firstName") }}
+        </p>
+      </div>
+
+      <!-- Last Name Field -->
+      <div class="form-group">
+        <label for="lastName" class="form-label required">
+          <svg
+            class="label-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Last Name</span>
+        </label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          class="form-input"
+          [class.error]="
+            profileForm.get('lastName')?.touched &&
+            profileForm.get('lastName')?.invalid
+          "
+          placeholder="Enter your last name"
+        />
+        <p *ngIf="getErrorMessage('lastName')" class="error-message">
+          {{ getErrorMessage("lastName") }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="onClose()"
+        [disabled]="isLoading"
+      >
+        <svg
+          class="btn-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path
+            d="M18 6L6 18M6 6l12 12"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Cancel</span>
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isFormValid">
+        <svg
+          class="btn-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <path
+            d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17 21v-8H7v8M7 3v5h8"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span *ngIf="isLoading" class="loading-spinner small"
+          ><span class="spinner"></span
+        ></span>
+        <span>Save Changes</span>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,24 @@
+/* Minimal custom styles - Bootstrap handles most styling */
+.chart-container {
+  position: relative;
+}
+
+.text-orange {
+  color: #fd7e14 !important;
+}
+
+/* Ensure cards have consistent height */
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Custom spinner animation for loading state */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

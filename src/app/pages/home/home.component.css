@@ -1,0 +1,479 @@
+:host {
+    display: block;
+}
+
+::selection {
+    background-color: #FBD784;
+    color: #0B1D26;
+}
+
+/* Navbar */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem 5rem;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-family: 'Chronicle Display', serif;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    /* text-decoration: none; */
+    font-size: 1.125rem;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #FBD784;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.account:hover {
+    color: #FBD784;
+}
+
+/* Social Sidebar */
+.social-sidebar {
+    position: fixed;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.follow-text {
+    transform: rotate(90deg);
+    white-space: nowrap;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    font-size: 1.125rem;
+    transform-origin: left center;
+    margin-left: 3rem;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.social-icons svg {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.social-icons svg:hover {
+    color: #FBD784;
+    transform: scale(1.1);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: fixed;
+    right: 6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.5rem;
+    color: white;
+}
+
+.scroll-bar {
+    width: 3px;
+    height: 14rem;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.scroll-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transform-origin: top;
+    transform: scaleY(0.33);
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+}
+
+.scroll-numbers {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+.scroll-numbers span {
+    transition: opacity 240ms ease, transform 240ms ease;
+    will-change: opacity, transform;
+}
+
+.scroll-numbers span.inactive {
+    opacity: 0.45;
+    transform: translateX(6px);
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, 
+        rgba(11, 29, 38, 0.1) 0%, 
+        rgba(11, 29, 38, 0.3) 50%,
+        rgba(11, 29, 38, 0.9) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5rem;
+}
+
+.hero-tag {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: #FBD784;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+.hero-tag::before {
+    content: '';
+    width: 4.5rem;
+    height: 2px;
+    background: #FBD784;
+}
+
+.hero h1 {
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    font-family: 'Chronicle Display', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.scroll-down {
+    display: flex;
+    color: white;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-top: 3rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Content Sections */
+.content-section {
+    padding: 12rem 0;
+    position: relative;
+    background-color: #0B1D26;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5rem;
+}
+
+.section-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: center;
+}
+
+.section-content.reverse {
+    direction: rtl;
+}
+
+.section-content.reverse > * {
+    direction: ltr;
+}
+
+.text-content {
+    position: relative;
+}
+
+.section-number {
+    position: absolute;
+    top: -8rem;
+    left: -3rem;
+    font-size: 15rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.03);
+    user-select: none;
+    z-index: -1;
+    font-family: 'Chronicle Display', Georgia, serif;
+    line-height: 1;
+}
+
+.section-tag {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: #FBD784;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+}
+
+.section-tag::before {
+    content: '';
+    width: 4.5rem;
+    height: 2px;
+    background: #FBD784;
+}
+
+.text-content h2 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: 1.75rem;
+    font-family: 'Chronicle Display', Georgia, serif;
+    font-weight: 600;
+    color: white;
+}
+
+.text-content p {
+    font-size: 1.125rem;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    max-width: 32rem;
+    font-weight: 700;
+}
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #FBD784;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: gap 0.3s;
+    font-size: 1.125rem;
+}
+
+.read-more:hover {
+    gap: 1.25rem;
+}
+
+.image-content {
+    position: relative;
+}
+
+.image-content img {
+    width: 100%;
+    max-width: 34rem;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+/* Footer: removed from page-level; use layout's `app-footer` component */
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 8rem;
+}
+
+.footer-brand {
+    max-width: 22rem;
+}
+
+.footer-brand .logo {
+    margin-bottom: 1.5rem;
+}
+
+.footer-brand p {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    line-height: 2;
+}
+
+.footer-brand .copyright {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-top: 8rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 10rem;
+}
+
+.footer-column h4 {
+    color: #FBD784;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-column a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.footer-column a:hover {
+    color: #FBD784;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    nav {
+        padding: 2rem 3rem;
+    }
+
+    .container {
+        padding: 0 3rem;
+    }
+
+    .hero-content {
+        padding: 0 3rem;
+    }
+
+    .scroll-indicator {
+        right: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 2rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .social-sidebar,
+    .scroll-indicator {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        color: white;
+    }
+
+    .section-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .section-content.reverse {
+        direction: ltr;
+    }
+
+    .image-content img {
+        margin: 0 auto;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .footer-links {
+        gap: 4rem;
+    }
+
+    .container {
+        padding: 0 2rem;
+    }
+
+    .hero-content {
+        padding: 0 2rem;
+    }
+}
