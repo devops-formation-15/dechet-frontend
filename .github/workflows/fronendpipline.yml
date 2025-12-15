@@ -31,7 +31,17 @@ jobs:
                   username: ${{ vars.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: build docker image
-              run: docker build ${{env.BUILD_ARGS}} -t ${{env.IMAGE_NAME}}:latest .
+              run: |
+                  echo "BUILD_ARGS raw: '${{ env.BUILD_ARGS }}'"
+                  # Remove stray CR characters that may come from Windows-style variables
+                  BUILD_ARGS_CLEAN=$(printf '%s' "${{ env.BUILD_ARGS }}" | tr -d '\r')
+                  echo "BUILD_ARGS cleaned: '${BUILD_ARGS_CLEAN}'"
+                  # Ensure Dockerfile exists in workspace
+                  if [ ! -f Dockerfile ]; then
+                    echo "Dockerfile not found in workspace:" && ls -la
+                    exit 1
+                  fi
+                  docker build ${BUILD_ARGS_CLEAN} -t ${{env.IMAGE_NAME}}:latest .
             - name: taracbilite de l ancien version
               run: |
                   # Tag the built image with a version tag
