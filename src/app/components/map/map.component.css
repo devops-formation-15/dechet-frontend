@@ -1,112 +1,345 @@
-/* Map Component Styling */
-:host {
-  display: block;
-}
-
-.map-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 360px; /* Map primary + sidebar */
-  gap: 20px;
-  align-items: start;
-}
-
-.map-panel {
-  min-height: 420px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-}
-
-.map-canvas {
-  width: 100%;
-  height: 100%;
-  min-height: 420px;
-}
-
-.route-sidebar {
-  background: #fff;
-  border-radius: 10px;
-  padding: 16px;
-  border: 1px solid #edf2f7;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03);
-  font-family: system-ui, 'Inter', sans-serif;
-}
-
-.route-header { margin-bottom: 12px; }
-.route-header h3 { margin: 0; font-weight: 700; }
-.route-header .muted { margin: 0; color: #6b7280; font-size: 0.85rem }
-
-.route-header { display:flex; justify-content:space-between; align-items:flex-start }
-.route-header-left { display:flex; flex-direction:column; gap:4px }
-.route-header-right { display:flex; align-items:center }
-.route-tag { display:inline-block; padding:6px 10px; border-radius:999px; background:#f3f4f6; border:1px solid #e5e7eb; font-weight:600; font-size:0.85rem; color:#374151 }
-.route-title { font-size:1.5rem; margin:0 }
-.status-pill { padding:6px 10px; border-radius:999px; font-weight:700; text-transform:capitalize; font-size:0.85rem }
-.status-pill.green { background:#ecfdf5; color:#065f46; border:1px solid #bbf7d0 }
-.status-pill.orange { background:#fff7ed; color:#b45309; border:1px solid #ffedd5 }
-
-.route-card { display: flex; flex-direction: column; gap: 12px; }
-.route-top { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-.route-meta div, .route-stats div { font-size: 0.95rem; color:#374151 }
-
-.vehicle-card { background:#f8fafc; padding:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; }
-.vehicle-id { color:#6b7280; font-size:0.9rem }
-.vehicle-type { font-weight:600 }
-
-.assigned-users ul { padding-left: 16px; }
-.assigned-users li { font-size:0.95rem; margin-bottom:6px }
-.assigned-users .chip { background:#d1fae5; color:#065f46; padding: 3px 8px; margin-left:8px; border-radius:9999px; font-size:0.8rem }
-
-.pickups-overview ol { padding-left: 18px; margin:0; font-size:0.92rem }
-
-/* Timeline stops */
-.stop-list { list-style: none; padding: 0 0 0 26px; margin: 0; position:relative }
-.stop-list::before { content:''; position:absolute; left: 12px; top: 12px; bottom: 12px; width:2px; background: linear-gradient(180deg, rgba(113,128,150,0.12), rgba(113,128,150,0.06)); border-radius: 2px }
-.stop-item { position: relative; display:flex; align-items:center; gap: 12px; padding: 12px 6px; border-bottom: 1px solid #f3f4f6 }
-.stop-dot { width:12px; height:12px; border-radius:999px; background:#ffffff; border: 3px solid #0ea5a0; box-shadow: 0 4px 10px rgba(14,165,160,0.08); flex-shrink:0; margin-left:-24px }
-.stop-dot.green { border-color:#10b981; box-shadow: 0 6px 12px rgba(16,185,129,0.12) }
-.stop-dot.red { border-color:#ef4444; box-shadow: 0 6px 12px rgba(239,68,68,0.10) }
-.stop-content { flex: 1 }
-.stop-meta { font-size:0.73rem; font-weight:700; color:#9ca3af; letter-spacing:0.06em }
-.stop-title { font-weight:700; color:#111827; margin-top: 3px }
-.stop-sub { font-size:0.85rem; color:#6b7280; margin-top: 3px }
-.stop-badge { background:#fff; border-radius:999px; padding:6px 8px; border:1px solid #e5e7eb; font-size:0.78rem; color:#374151 }
-
-/* Export button */
-.route-actions { margin-top: 14px; }
-.export-btn { width:100%; background: linear-gradient(90deg,#2573ee,#2d8cf6); color:#fff; padding:12px 14px; border-radius:10px; border:none; box-shadow: 0 10px 30px rgba(45,140,246,0.18); font-weight:700; font-size:1rem }
-.export-btn:hover { filter: brightness(0.97) }
-
-/* Responsive: stack on small screens */
-@media (max-width: 900px) {
-  .map-wrapper { grid-template-columns: 1fr; }
-  .route-sidebar { order: -1; margin-bottom: 12px; }
-  .map-canvas { min-height: 360px }
-}
-
-/* Legacy marker color tweaks */
-::ng-deep .green-marker { filter: hue-rotate(90deg) saturate(150%); }
-::ng-deep .red-marker { filter: hue-rotate(340deg) saturate(200%) brightness(0.9); }
 .map-container {
   width: 100%;
-  height: 600px;        /* or 100vh if you want full screen */
-  border-radius: 12px;
+  max-width: 1200px;
+  height: 480px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  margin: 20px 0;
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.12),
+    0 6px 15px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  margin: 24px auto;
+  position: relative;
+
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+  padding: 3px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.map-container:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 20px 60px rgba(15, 23, 42, 0.3),
+    0 12px 25px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.map-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg,
+    #0f172a 0%,
+    #1e293b 25%,
+    #334155 50%,
+    #1e293b 75%,
+    #0f172a 100%);
+  background-size: 200% 100%;
+  z-index: 10;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 #map {
   height: 100%;
   width: 100%;
+  border-radius: 14px;
+  background: #f5f7fa;
+  position: relative;
+  z-index: 1;
 }
 
-/* Color markers */
+::ng-deep .depot-tooltip {
+  background: linear-gradient(135deg, #27ae60, #229954) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 5px 10px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 10px rgba(39, 174, 96, 0.35) !important;
+  font-size: 12px !important;
+}
+
+::ng-deep .depot-tooltip::before {
+  border-top-color: #27ae60 !important;
+}
+
+::ng-deep .urgent-tooltip {
+  background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 5px 10px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 10px rgba(231, 76, 60, 0.35) !important;
+  animation: tooltipPulse 1.5s ease-in-out infinite;
+  font-size: 12px !important;
+}
+
+::ng-deep .urgent-tooltip::before {
+  border-top-color: #e74c3c !important;
+}
+
+::ng-deep .ok-tooltip {
+  background: linear-gradient(135deg, #27ae60, #229954) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 5px 10px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 10px rgba(39, 174, 96, 0.35) !important;
+  font-size: 12px !important;
+}
+
+::ng-deep .ok-tooltip::before {
+  border-top-color: #27ae60 !important;
+}
+
+@keyframes tooltipPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Cercles pulsants pour conteneurs urgents */
+::ng-deep .pulse-circle {
+  animation: circlePulse 2s ease-in-out infinite;
+}
+
+@keyframes circlePulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+/* Amélioration des marqueurs */
 ::ng-deep .green-marker {
-  filter: hue-rotate(90deg) saturate(150%);
+  filter: hue-rotate(90deg) saturate(180%) brightness(1.1);
+  transition: transform 0.2s ease;
+}
+
+::ng-deep .green-marker:hover {
+  transform: scale(1.12);
+  filter: hue-rotate(90deg) saturate(200%) brightness(1.2) drop-shadow(0 2px 6px rgba(76, 175, 80, 0.35));
 }
 
 ::ng-deep .red-marker {
-  filter: hue-rotate(340deg) saturate(200%) brightness(0.9);
+  filter: hue-rotate(340deg) saturate(220%) brightness(0.95);
+  transition: transform 0.2s ease;
+}
+
+::ng-deep .red-marker:hover {
+  transform: scale(1.12);
+  filter: hue-rotate(340deg) saturate(240%) brightness(1) drop-shadow(0 2px 6px rgba(244, 67, 54, 0.35));
+}
+
+/* Popups optimisées et compactes */
+::ng-deep .leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  background: #ffffff;
+  max-width: 350px !important;
+  min-width: 280px !important;
+}
+
+::ng-deep .leaflet-popup-content {
+  margin: 0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personnalisée et fine */
+::ng-deep .leaflet-popup-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+::ng-deep .leaflet-popup-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+::ng-deep .leaflet-popup-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+::ng-deep .leaflet-popup-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::ng-deep .leaflet-popup-tip {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Contrôles de zoom compacts - HARMONISÉS AVEC FOOTER */
+::ng-deep .leaflet-control-zoom {
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: blur(10px);
+}
+
+::ng-deep .leaflet-control-zoom a {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+::ng-deep .leaflet-control-zoom a:hover {
+  /* CHANGÉ: Utilise le gradient du footer */
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+  color: white !important;
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(15, 23, 42, 0.5);
+}
+
+::ng-deep .leaflet-control-zoom a:active {
+  transform: scale(0.95);
+}
+
+/* Scale control compact - HARMONISÉ AVEC FOOTER */
+::ng-deep .leaflet-control-scale {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 7px !important;
+  padding: 5px 8px !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+  font-weight: 600 !important;
+  /* CHANGÉ: Couleur du footer */
+  color: #0f172a !important;
+  font-size: 11px !important;
+}
+
+/* Animation de chargement - HARMONISÉE AVEC FOOTER */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.map-container.loading::after {
+  content: 'Chargement...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  /* CHANGÉ: Couleur du footer */
+  color: #0f172a;
+  font-weight: 500;
+  animation: pulse 1.5s ease-in-out infinite;
+  z-index: 1000;
+}
+
+/* Animation pour les marqueurs d'étape */
+::ng-deep .step-marker {
+  animation: pulse-step 2s ease-in-out infinite;
+}
+
+@keyframes pulse-step {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Responsive design optimisé */
+@media (max-width: 768px) {
+  .map-container {
+    height: 380px;
+    margin: 16px 0;
+    border-radius: 12px;
+  }
+
+  ::ng-deep .leaflet-control-zoom {
+    transform: scale(0.9);
+  }
+
+  ::ng-deep .leaflet-popup-content-wrapper {
+    max-width: 300px !important;
+    min-width: 250px !important;
+    padding: 8px;
+  }
+
+  ::ng-deep .leaflet-popup-content {
+    max-height: 360px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    height: 340px;
+    margin: 12px 0;
+  }
+
+  ::ng-deep .leaflet-popup-content-wrapper {
+    max-width: 280px !important;
+    min-width: 230px !important;
+    padding: 8px;
+  }
+
+  ::ng-deep .leaflet-popup-content {
+    font-size: 11px;
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 360px) {
+  ::ng-deep .leaflet-popup-content-wrapper {
+    max-width: 260px !important;
+    min-width: 220px !important;
+  }
+
+  ::ng-deep .leaflet-popup-content {
+    font-size: 11px;
+  }
+}
+
+/* En-tête (le rectangle mauve) */
+.popup-header {
+  border-radius: 20px;
+  overflow: hidden;
 }

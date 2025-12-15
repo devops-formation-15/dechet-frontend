@@ -1,0 +1,13 @@
+/* Small fixed spinner */
+.small-spinner {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+}
+
+.small-spinner mat-spinner {
+	display: block;
+}
+

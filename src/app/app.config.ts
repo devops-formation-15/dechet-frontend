@@ -14,7 +14,13 @@ import { ToastrModule } from 'ngx-toastr';
 
 export function initializekeycloak(appKeycloakService: AppKeycloakService) {
   return () => {
-    return appKeycloakService.init();
+    // Prevent a Keycloak initialization timeout from stopping the whole app bootstrap.
+    // Log and continue so the SPA still renders even if silent SSO checks fail.
+    return appKeycloakService.init().catch((err: any) => {
+      console.warn('Keycloak init failed or timed out:', err);
+      // Return false so APP_INITIALIZER resolves
+      return false;
+    });
   };
 }
 export const appConfig: ApplicationConfig = {

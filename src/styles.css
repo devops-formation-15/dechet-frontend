@@ -310,3 +310,8 @@ body {
     opacity: 1;
   }
 }
+
+/* Ensure toast is above other UI elements */
+#toast-container {
+  z-index: 9999999 !important;
+}

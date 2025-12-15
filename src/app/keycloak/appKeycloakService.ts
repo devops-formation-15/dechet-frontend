@@ -79,11 +79,12 @@ export class AppKeycloakService {
             clientId: environment.KEYCLOAK_CLIENT_ID
         });
 
+        const keycloakUrl = (environment.KEYCLOAK_URL || '').replace(/\/$/, '');
         const auth = await this.keycloakService.init({
             config: {
-                url: 'https://dechet.46.lebondeveloppeur.net',   // ← NO /auth !!
-                realm: 'dechetrealm',
-                clientId: 'dechet-frontend'
+                url: keycloakUrl,   // use environment configured Keycloak URL (no trailing /auth)
+                realm: environment.KEYCLOAK_REALM,
+                clientId: environment.KEYCLOAK_CLIENT_ID
             },
             initOptions: {
                 onLoad: 'check-sso',           // ← same as hotel app

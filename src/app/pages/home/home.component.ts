@@ -33,7 +33,7 @@ interface DashboardStats {
     standalone: true,
     imports: [CommonModule, RouterModule],
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
     // IntersectionObserver for scroll indicator
@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Authentication state
     isAuthenticated = false;
     isAdmin = false;
-    profileRole?: string | null = null;
 
     // Dashboard statistics
     stats: DashboardStats = {
@@ -97,20 +96,26 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
 
         this.intersectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = elements.indexOf(entry.target as Element);
-                    // Clamp index to marker range (0..markerCount-1)
-                    const clamped = Math.max(0, Math.min(this.markerCount - 1, index));
-                    this.updateScrollIndicator(clamped);
-                }
+            // Find the topmost intersecting element
+            const intersectingEntries = entries.filter(entry => entry.isIntersecting);
+            if (intersectingEntries.length === 0) {
+                return;
+            }
+
+            // Sort by position to find the topmost visible section
+            const topmost = intersectingEntries.reduce((top, entry) => {
+                return entry.boundingClientRect.top < top.boundingClientRect.top ? entry : top;
             });
-        }, { threshold: 0.5 });
+
+            const index = elements.indexOf(topmost.target as Element);
+            // Clamp index to marker range (0..markerCount-1)
+            const clamped = Math.max(0, Math.min(this.markerCount - 1, index));
+            this.updateScrollIndicator(clamped);
+        }, { threshold: 0.3 });
 
         elements.forEach(el => this.intersectionObserver!.observe(el));
 
-        // Initial update — try to determine which section is currently visible
-        // (observer callbacks may run asynchronously, so set Start as default)
+        // Initial update — set to Lancer as default
         this.updateScrollIndicator(0);
     }
 
@@ -156,7 +161,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const profileSub = this.appKeycloakService.profileObservable.subscribe(profile => {
             this.isAdmin = profile?.role === UserRole.admin;
-            this.profileRole = profile?.role ? profile.role.toString() : null;
         });
 
         this.subscriptions.add(profileSub);
