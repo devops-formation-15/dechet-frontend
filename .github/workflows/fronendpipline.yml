@@ -31,7 +31,7 @@ jobs:
                   username: ${{ vars.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: build docker image
-              run: docker build ${{env.BUILD_ARGS}} -t ${{env.IMAGE_NAME}} .
+              run: docker build  ${{env.BUILD_ARGS}} -t ${{env.IMAGE_NAME}} .
             - name: taracbilite de l ancien version
               run : docker  tag ${{env.IMAGE_NAME}} ${{env.IMAGE_NAME}}:v${{env.VERSION_NUMBER}}
             - name: push image
