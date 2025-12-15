@@ -79,7 +79,7 @@ export class AppKeycloakService {
             clientId: environment.KEYCLOAK_CLIENT_ID
         });
 
-       const auth= await this.keycloakService.init({
+        const auth = await this.keycloakService.init({
             config: {
                 url: 'https://dechet.46.lebondeveloppeur.net',   // ← NO /auth !!
                 realm: 'dechetrealm',

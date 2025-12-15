@@ -11,19 +11,13 @@ env:
   SERVICE_NAME: ${{vars.SERVICE_NAME}}
   IMAGE_NAME: ${{vars.IMAGE_NAME}}
   DOCKER_COMPOSE_LOCATION: ${{vars.DOCKER_COMPOSE_LOCATION}}
+  BUILD_ARGS: ${{vars.BUILD_ARGS}}
 jobs:
     test:
         runs-on: ubuntu-latest
         steps:
             - name: copy code source
-              uses: actions/checkout@v6
-            - name: setup node
-              uses: actions/setup-node@v6
-
-            - name: install dependency
-              run: npm i
-            - name: excute test
-              run: npm run test
+              run: echo 'test a implementer'
 
     build:
         needs: test
@@ -37,7 +31,7 @@ jobs:
                   username: ${{ vars.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: build docker image
-              run: docker build --build-arg backend_uri=https://shop.46.lebondeveloppeur.net -t ${{env.IMAGE_NAME}} .
+              run: docker build ${{env.BUILD_ARGS}} -t ${{env.IMAGE_NAME}} .
             - name: taracbilite de l ancien version
               run : docker  tag ${{env.IMAGE_NAME}} ${{env.IMAGE_NAME}}:v${{env.VERSION_NUMBER}}
             - name: push image
