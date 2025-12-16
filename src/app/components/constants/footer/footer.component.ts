@@ -37,7 +37,7 @@ export class FooterComponent {
       return;
     }
 
-    const adminEmail = 'nourzakhma@gmail.com';
+    const adminEmail = 'azizmabrouk184@gmail.com';
     const payload: Notification = {
       subject: this.contactForm.subject,
       recipient: adminEmail,
