@@ -79,7 +79,7 @@ export class IncidentFormComponent implements OnInit {
         this.pickUpPointService.getAll().subscribe({
             next: (res: AppResponse) => {
                 this.pickUpPoints = res.pickuppoints || [];
-                // If a pickUpPointId is already selected in the form (edit mode), set the selectedPickupPoint object
+                // If a pickUpPointId is already selected  the form (edit mode), set the selectedPickupPoint object
                 const selectedId = this.formGroup.get('pickUpPointId')?.value;
                 if (selectedId) {
                     this.selectedPickupPoint = this.pickUpPoints.find(p => p.id === selectedId) || null;
