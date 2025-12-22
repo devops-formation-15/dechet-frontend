@@ -11,7 +11,7 @@ import { VehiculeStatus } from '../../../../models/enums/VehiculeStatus';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
     templateUrl: './vehicle-form.component.html',
-    styleUrls: ['./vehicle-form.component.css', '../../shared/modern-forms.css']
+    styleUrls: ['./vehicle-form.component.css', '../../../shared/modern-forms.css']
 })
 export class VehicleFormComponent implements OnInit {
     formGroup!: FormGroup;

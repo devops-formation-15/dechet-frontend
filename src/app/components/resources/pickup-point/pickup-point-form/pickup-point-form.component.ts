@@ -11,7 +11,7 @@ import { AppResponse } from '../../../../models/AppResponse';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, FormsModule, MatDialogModule],
     templateUrl: './pickup-point-form.component.html',
-    styleUrls: ['./pickup-point-form.component.css', '../../shared/modern-forms.css']
+    styleUrls: ['./pickup-point-form.component.css', '../../../shared/modern-forms.css']
 })
 export class PickupPointFormComponent implements OnInit {
     formGroup!: FormGroup;
