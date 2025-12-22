@@ -1,0 +1,216 @@
+/* Mobile-First Responsive Styles for Resources Component */
+
+/* Sidebar Mobile Drawer */
+@media (max-width: 1024px) {
+  .realtive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  aside {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  }
+
+  aside.show {
+    transform: translateX(0);
+  }
+
+  /* Overlay for mobile sidebar */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Main content adjustment */
+  main {
+    padding: 1rem !important;
+  }
+
+  /* Header adjustments */
+  header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  header h2 {
+    font-size: 1.5rem !important;
+  }
+
+  header p {
+    font-size: 0.875rem;
+  }
+
+  /* Action buttons */
+  .inline-flex {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .btnc {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tighter spacing on mobile */
+  main {
+    padding: 0.75rem !important;
+  }
+
+  header {
+    margin-bottom: 1.5rem !important;
+  }
+
+  header h2 {
+    font-size: 1.375rem !important;
+  }
+
+  /* Card adjustments */
+  .bg-white.rounded-2xl {
+    border-radius: 1rem !important;
+  }
+
+  /* Map section */
+  .h-\[500px\] {
+    height: 300px !important;
+  }
+
+  /* Section titles */
+  h3.text-lg {
+    font-size: 1rem !important;
+  }
+
+  /* Padding adjustments */
+  .p-6 {
+    padding: 1rem !important;
+  }
+
+  .p-4 {
+    padding: 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  main {
+    padding: 0.5rem !important;
+  }
+
+  header {
+    margin-bottom: 1rem !important;
+  }
+
+  header h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .btnc {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .btnsvg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Reduce card padding */
+  .p-6 {
+    padding: 0.75rem !important;
+  }
+
+  .p-4 {
+    padding: 0.5rem !important;
+  }
+
+  /* Map height */
+  .h-\[500px\] {
+    height: 250px !important;
+  }
+
+  /* Loading spinner */
+  .h-12.w-12 {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+  }
+}
+
+/* Touch-friendly elements */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Sidebar nav buttons */
+  aside nav button {
+    padding: 1rem !important;
+    font-size: 1rem;
+  }
+
+  /* Remove hover effects on touch devices */
+  button:hover {
+    transform: none;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Scrollbar styling for mobile */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Ensure no horizontal scroll */
+@media (max-width: 1024px) {
+  * {
+    max-width: 100%;
+  }
+
+  .flex.h-screen {
+    overflow-x: hidden;
+  }
+}
