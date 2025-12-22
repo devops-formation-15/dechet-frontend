@@ -21,13 +21,23 @@
       </div>
     </div>
 
-    <!-- Navigation Links -->
-    <div class="nav-center">
+    <!-- Hamburger Menu Button (Mobile Only) -->
+    <button class="hamburger-btn" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+      <svg *ngIf="!isMobileMenuOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"/>
+      </svg>
+      <svg *ngIf="isMobileMenuOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Navigation Links (Desktop) -->
+    <div class="nav-center desktop-nav">
       <app-nav></app-nav>
     </div>
 
-    <!-- Right Section: Auth & Profile -->
-    <div class="nav-actions">
+    <!-- Right Section: Auth & Profile (Desktop) -->
+    <div class="nav-actions desktop-nav">
       <div *ngIf="!isAuthenitcatedUser; else authTemplate" class="auth-buttons">
         <button (click)="login()" class="btn-secondary">
           <svg
@@ -158,4 +168,65 @@
       </ng-template>
     </div>
   </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" *ngIf="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu-drawer" [class.open]="isMobileMenuOpen">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <button class="close-btn" (click)="closeMobileMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mobile-menu-content">
+      <!-- Navigation Links -->
+      <app-nav (click)="closeMobileMenu()"></app-nav>
+
+      <!-- Auth Buttons / Profile -->
+      <div class="mobile-menu-actions">
+        <div *ngIf="!isAuthenitcatedUser" class="mobile-auth-buttons">
+          <button (click)="login(); closeMobileMenu()" class="mobile-btn mobile-btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" stroke-linecap="round"/>
+            </svg>
+            <span>Login</span>
+          </button>
+          <button (click)="signUp(); closeMobileMenu()" class="mobile-btn mobile-btn-primary">
+            <span>Sign Up</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div *ngIf="isAuthenitcatedUser" class="mobile-profile-section">
+          <div class="mobile-profile-info">
+            <img *ngIf="profileImage" [src]="profileImage" alt="Profile" class="mobile-profile-avatar"/>
+            <div *ngIf="!profileImage" class="mobile-profile-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <button (click)="openDialog(); closeMobileMenu()" class="mobile-profile-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" stroke-linecap="round"/>
+            </svg>
+            <span>Edit Profile</span>
+          </button>
+          <button (click)="logout(); closeMobileMenu()" class="mobile-profile-btn logout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke-linecap="round"/>
+            </svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>

@@ -19,7 +19,7 @@ import { ToastService } from '../../../../services/toast.service';
     ReactiveFormsModule,
     MatDialogModule],
   templateUrl: './container-form.component.html',
-  styleUrls: ['./container-form.component.css'],
+  styleUrls: ['./container-form.component.css', '../../shared/modern-forms.css'],
 })
 export class ContainerFormComponent implements OnInit {
   isLoading: boolean = false;

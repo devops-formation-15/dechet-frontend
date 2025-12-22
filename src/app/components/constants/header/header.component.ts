@@ -14,11 +14,12 @@ import { NavComponent } from '../nav/nav.component';
   imports: [CommonModule, MatDialogModule, MatSnackBarModule, NavComponent],
 
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css', './mobile-menu.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
   isProfileDropdownOpen = false;
+  isMobileMenuOpen = false; // Mobile menu state
   profileImage!: string;
   admin = false;
   private profileSubscription?: Subscription;
@@ -68,7 +69,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
+  // Toggle mobile menu
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    // Prevent body scroll when menu is open
+    if (this.isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
 
+  // Close mobile menu
+  closeMobileMenu() {
+    this.isMobileMenuOpen = false;
+    document.body.style.overflow = '';
+  }
 
 
 

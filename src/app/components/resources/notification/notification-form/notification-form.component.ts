@@ -13,7 +13,7 @@ import { AppResponse } from '../../../../models/AppResponse';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
     templateUrl: './notification-form.component.html',
-    styleUrls: ['./notification-form.component.css']
+    styleUrls: ['./notification-form.component.css', '../../shared/modern-forms.css']
 })
 export class NotificationFormComponent implements OnInit {
     formGroup!: FormGroup;

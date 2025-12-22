@@ -12,7 +12,7 @@ import { AppResponse } from '../../../../models/AppResponse';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
     templateUrl: './incident-form.component.html',
-    styleUrls: ['./incident-form.component.css']
+    styleUrls: ['./incident-form.component.css', '../../shared/modern-forms.css']
 })
 export class IncidentFormComponent implements OnInit {
     formGroup!: FormGroup;
