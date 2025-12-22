@@ -256,6 +256,12 @@
   .mobile-menu-header h3 {
     font-size: 1.125rem;
   }
+
+  /* Hide any text that might appear near close buttons */
+  .close-btn::before,
+  .close-btn::after {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {
