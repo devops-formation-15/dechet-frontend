@@ -16,13 +16,11 @@
       <tr
         *ngFor="let container of containers"
         class="hover:bg-gray-50 transition-colors duration-150"
+        app-container-card
+        [container]="container"
+        (onEdit)="editContainer($event)"
+        (onDelete)="deleteContainer($event)"
       >
-        <app-container-card
-          [container]="container"
-          (onEdit)="editContainer($event)"
-          (onDelete)="deleteContainer($event)"
-          style="display: contents"
-        ></app-container-card>
       </tr>
       <tr *ngIf="containers.length === 0" class="bg-white">
         <td colspan="5" class="px-6 py-12 text-center text-gray-500">

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-pickup-point-card',
+  selector: '[app-pickup-point-card]',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './pickup-point-card.component.html',

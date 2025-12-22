@@ -4,7 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouteDetailsComponent } from '../route-details/route-details.component';
 
 @Component({
-  selector: 'app-route-card',
+  selector: '[app-route-card]',
   standalone: true,
   imports: [CommonModule, MatDialogModule],
   templateUrl: './route-card.component.html',

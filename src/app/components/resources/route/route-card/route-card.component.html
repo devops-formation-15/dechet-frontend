@@ -1,10 +1,10 @@
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" data-label="Route ID">
   #{{ route.id?.substring(0, 8) }}
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600" data-label="Date">
   {{ route.routeDate | date : "short" }}
 </td>
-<td class="px-6 py-4 whitespace-nowrap">
+<td class="px-6 py-4 whitespace-nowrap" data-label="Vehicle">
   <div class="flex items-center">
     <div
       class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xs shadow-sm"
@@ -40,7 +40,7 @@
     </div>
   </div>
 </td>
-<td class="px-6 py-4">
+<td class="px-6 py-4" data-label="Employees">
   <div class="flex items-center">
     <div *ngIf="route.users && route.users.length > 0" class="flex -space-x-2">
       <div
@@ -64,17 +64,17 @@
     >
   </div>
 </td>
-<td class="px-6 py-4">
+<td class="px-6 py-4" data-label="Pickup Points">
   <div class="flex items-center">
     <span class="text-sm text-gray-600">
       {{ route.pickUpPoints?.length || 0 }} points
     </span>
   </div>
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600" data-label="Distance">
   {{ route.totalDistance / 1000 | number : "1.1-1" }} km
 </td>
-<td class="px-6 py-4 whitespace-nowrap">
+<td class="px-6 py-4 whitespace-nowrap" data-label="Status">
   <span
     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
     [ngClass]="{
@@ -90,7 +90,7 @@
     {{ route.status || "Unknown" }}
   </span>
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium" data-label="Actions">
   <button
     (click)="viewDetails()"
     class="text-gray-400 hover:text-purple-600 transition-colors duration-200 mr-3"

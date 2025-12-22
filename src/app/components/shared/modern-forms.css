@@ -42,7 +42,8 @@
   align-items: center;
   gap: 0.75rem;
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to flex-start */
+  margin-left: 3rem; /* Add space for close button */
 }
 
 .title-dot {
@@ -80,6 +81,10 @@
 
 .close-btn,
 .close-button {
+  position: absolute;
+  left: 1rem; /* Position on the left */
+  top: 50%;
+  transform: translateY(-50%);
   width: 40px;
   height: 40px;
   display: flex;
@@ -90,8 +95,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .close-btn svg,
@@ -106,7 +110,7 @@
 .close-button:hover {
   background: rgba(239, 68, 68, 0.2);
   border-color: rgba(239, 68, 68, 0.4);
-  transform: rotate(90deg);
+  transform: translateY(-50%) rotate(90deg);
 }
 
 /* Form Content */

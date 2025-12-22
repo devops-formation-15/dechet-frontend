@@ -16,13 +16,11 @@
       <tr
         *ngFor="let vehicle of vehicles"
         class="hover:bg-gray-50 transition-colors duration-150"
+        app-vehicle-card
+        [vehicle]="vehicle"
+        (onEdit)="editVehicle($event)"
+        (onDelete)="deleteVehicle($event)"
       >
-        <app-vehicle-card
-          [vehicle]="vehicle"
-          (onEdit)="editVehicle($event)"
-          (onDelete)="deleteVehicle($event)"
-          style="display: contents"
-        ></app-vehicle-card>
       </tr>
       <tr *ngIf="vehicles.length === 0" class="bg-white">
         <td colspan="6" class="px-6 py-12 text-center text-gray-500">

@@ -1,4 +1,4 @@
-<td class="px-6 py-4 whitespace-nowrap">
+<td class="px-6 py-4 whitespace-nowrap" data-label="Matricule">
   <div class="flex items-center">
     <div
       class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shadow-sm"
@@ -34,7 +34,7 @@
     </div>
   </div>
 </td>
-<td class="px-6 py-4 whitespace-nowrap">
+<td class="px-6 py-4 whitespace-nowrap" data-label="Type">
   <span
     class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
     [ngClass]="{
@@ -47,10 +47,10 @@
     {{ vehicle.vehiculeType === "camion" ? "Truck" : "Car" }}
   </span>
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600" data-label="Capacity">
   {{ vehicle.capacity | number : "1.0-0" }} kg
 </td>
-<td class="px-6 py-4 whitespace-nowrap">
+<td class="px-6 py-4 whitespace-nowrap" data-label="Status">
   <span
     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
     [ngClass]="{
@@ -63,7 +63,7 @@
     }}
   </span>
 </td>
-<td class="px-6 py-4">
+<td class="px-6 py-4" data-label="Assigned Users">
   <div
     *ngIf="vehicle.users && vehicle.users.length > 0"
     class="flex flex-col space-y-1"
@@ -91,7 +91,7 @@
     No users assigned
   </div>
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium" data-label="Actions">
   <button
     (click)="edit()"
     class="text-gray-400 hover:text-blue-600 transition-colors duration-200 mr-3"

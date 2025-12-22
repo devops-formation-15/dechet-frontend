@@ -1,8 +1,6 @@
-/* Universal Mobile Responsive Styles for Resource Cards */
-
+/* Card styles are now handled by list components */
 :host {
-  display: block;
-  width: 100%;
+  display: table-row;
 }
 
 /* Card container */

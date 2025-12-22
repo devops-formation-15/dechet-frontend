@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-notification-card',
+  selector: '[app-notification-card]',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './notification-card.component.html',

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-incident-card',
+  selector: '[app-incident-card]',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './incident-card.component.html',

@@ -6,7 +6,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1001; /* Above map and other content */
   }
 
   aside {
@@ -16,8 +16,10 @@
     height: 100vh;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 999;
+    z-index: 1000; /* Above map but below toggle button */
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    width: 16rem; /* 256px - scale down from desktop */
+    max-width: 80vw; /* Don't exceed 80% of viewport */
   }
 
   aside.show {
@@ -32,7 +34,7 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 998;
+    z-index: 999; /* Below sidebar */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -46,6 +48,7 @@
   /* Main content adjustment */
   main {
     padding: 1rem !important;
+    margin-top: 3rem; /* Space for toggle button */
   }
 
   /* Header adjustments */
@@ -74,6 +77,26 @@
     justify-content: center;
     padding: 0.875rem 1.5rem;
     font-size: 0.9375rem;
+  }
+
+  /* Sidebar navigation items - scale down */
+  aside nav button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9375rem !important;
+  }
+
+  aside nav svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* Sidebar header */
+  aside .p-6 {
+    padding: 1.25rem !important;
+  }
+
+  aside h1 {
+    font-size: 1.5rem !important;
   }
 }
 
@@ -113,6 +136,22 @@
 
   .p-4 {
     padding: 0.75rem !important;
+  }
+
+  /* Sidebar - even more compact */
+  aside {
+    width: 14rem; /* 224px */
+    max-width: 75vw;
+  }
+
+  aside nav button {
+    padding: 0.625rem 0.875rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  aside nav svg {
+    width: 18px !important;
+    height: 18px !important;
   }
 }
 
@@ -158,6 +197,30 @@
   .h-12.w-12 {
     height: 2.5rem !important;
     width: 2.5rem !important;
+  }
+
+  /* Sidebar - maximum compact */
+  aside {
+    width: 12rem; /* 192px */
+    max-width: 70vw;
+  }
+
+  aside nav button {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  aside nav svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  aside .p-6 {
+    padding: 1rem !important;
+  }
+
+  aside h1 {
+    font-size: 1.25rem !important;
   }
 }
 

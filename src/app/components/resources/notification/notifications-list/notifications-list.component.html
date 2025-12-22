@@ -15,13 +15,11 @@
       <tr
         *ngFor="let notification of notifications"
         class="hover:bg-gray-50 transition-colors duration-150"
+        app-notification-card
+        [notification]="notification"
+        (onView)="viewNotification($event)"
+        (onDelete)="deleteNotification($event)"
       >
-        <app-notification-card
-          [notification]="notification"
-          (onView)="viewNotification($event)"
-          (onDelete)="deleteNotification($event)"
-          style="display: contents"
-        ></app-notification-card>
       </tr>
       <tr *ngIf="notifications.length === 0" class="bg-white">
         <td colspan="5" class="px-6 py-12 text-center text-gray-500">

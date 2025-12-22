@@ -1,4 +1,4 @@
-<td class="px-6 py-4 whitespace-nowrap">
+<td class="px-6 py-4 whitespace-nowrap" data-label="Location">
   <div class="flex items-center">
     <div
       class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 shadow-sm"
@@ -35,10 +35,10 @@
     </div>
   </div>
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600" data-label="Address">
   {{ point.address || "No address provided" }}
 </td>
-<td class="px-6 py-4">
+<td class="px-6 py-4" data-label="Containers">
   <div class="flex flex-col space-y-2">
     <div
       *ngFor="let container of point.containers"
@@ -79,7 +79,7 @@
     </div>
   </div>
 </td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium" data-label="Actions">
   <button
     (click)="edit()"
     class="text-blue-600 hover:text-blue-900 text-xs font-semibold"

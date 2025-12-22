@@ -14,13 +14,11 @@
       <tr
         *ngFor="let point of pickupPoints"
         class="hover:bg-gray-50 transition-colors duration-150"
+        app-pickup-point-card
+        [point]="point"
+        (onEdit)="editPickupPoint($event)"
+        (onDelete)="deletePickupPoint($event)"
       >
-        <app-pickup-point-card
-          [point]="point"
-          (onEdit)="editPickupPoint($event)"
-          (onDelete)="deletePickupPoint($event)"
-          style="display: contents"
-        ></app-pickup-point-card>
       </tr>
       <tr *ngIf="pickupPoints.length === 0" class="bg-white">
         <td colspan="4" class="px-6 py-12 text-center text-gray-500">

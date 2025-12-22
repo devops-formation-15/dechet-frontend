@@ -18,13 +18,11 @@
       <tr
         *ngFor="let route of routes"
         class="hover:bg-gray-50 transition-colors duration-150"
+        app-route-card
+        [route]="route"
+        (onEdit)="viewRoute($event)"
+        (onDelete)="deleteRoute($event)"
       >
-        <app-route-card
-          [route]="route"
-          (onView)="viewRoute($event)"
-          (onDelete)="deleteRoute($event)"
-          style="display: contents"
-        ></app-route-card>
       </tr>
       <tr *ngIf="routes.length === 0" class="bg-white">
         <td colspan="8" class="px-6 py-12 text-center text-gray-500">
