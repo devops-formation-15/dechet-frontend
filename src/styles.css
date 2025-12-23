@@ -394,10 +394,10 @@ body {
   }
 }
 
-/* Prevent horizontal scroll on mobile */
+/* Prevent horizontal scroll on mobile except for specific containers */
 @media (max-width: 1024px) {
   html, body {
-    overflow-x: hidden;
+    overflow-x: visible;
     max-width: 100vw;
   }
 }
@@ -488,6 +488,17 @@ body {
 }
 
 .table-container::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: #94a3b8; /* Darker for better visibility (Slate-400) */
   border-radius: 0;
+}
+
+/* Force horizontal scroll on mobile for tables */
+@media (max-width: 768px) {
+  .table-container table {
+    min-width: 800px !important;
+  }
+
+  .table-container {
+    padding-bottom: 12px; /* Extra space for the thicker scrollbar */
+  }
 }
