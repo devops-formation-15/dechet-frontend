@@ -7,7 +7,7 @@
 /* Dialog Container Override */
 :host ::ng-deep .mat-mdc-dialog-container {
   padding: 0 !important;
-  border-radius: 16px !important;
+  border-radius: 0 !important;
   overflow: hidden !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -16,12 +16,12 @@
 :host ::ng-deep .mat-mdc-dialog-surface {
   background: transparent !important;
   box-shadow: none !important;
-  border-radius: 16px !important;
+  border-radius: 0 !important;
 }
 
 .form-card {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
@@ -233,7 +233,7 @@ select.form-input option:first-child {
   width: 3px;
   height: 60%;
   background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
-  border-radius: 0 2px 2px 0;
+  border-radius: 0;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -280,7 +280,7 @@ select.form-input option:first-child {
   background: linear-gradient(135deg, #0ea5e9 0%, #1048b9 100%); /* Cyan to Emerald gradient */
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 1px;
@@ -326,7 +326,7 @@ select.form-input option:first-child {
 
 .form-content::-webkit-scrollbar-thumb {
   background-color: #cbd5e0;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 /* Container Selection Styles */
@@ -338,7 +338,7 @@ select.form-input option:first-child {
   max-height: 300px;
   overflow-y: auto;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 0.5rem;
 }
 
@@ -347,7 +347,7 @@ select.form-input option:first-child {
   align-items: center;
   gap: 1rem;
   padding: 0.75rem;
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid transparent;
@@ -390,7 +390,7 @@ select.form-input option:first-child {
   margin-top: 0.75rem;
   padding: 0.5rem;
   background-color: #eff6ff;
-  border-radius: 6px;
+  border-radius: 0;
   text-align: center;
   font-size: 0.875rem;
   color: #3b82f6;
@@ -415,7 +415,7 @@ select.form-input option:first-child {
 
 .container-list::-webkit-scrollbar-thumb {
   background-color: #cbd5e0;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 /* Help Text */
@@ -435,7 +435,7 @@ select.form-input option:first-child {
   background-color: #3b82f6;
   color: #ffffff;
   font-size: 0.75rem;
-  border-radius: 12px;
+  border-radius: 0;
   font-weight: 600;
 }
 
@@ -513,7 +513,7 @@ select.form-input option:first-child {
   right: 0;
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   max-height: 320px;
@@ -544,7 +544,7 @@ select.form-input option:first-child {
   justify-content: space-between;
   padding: 0.875rem 1rem;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 0;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 0.25rem;
   font-size: 0.9375rem;
@@ -633,12 +633,12 @@ select.form-input option:first-child {
 
 .location-options-container::-webkit-scrollbar-track {
   background: #f7fafc;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 .location-options-container::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #cbd5e0 0%, #94a3b8 100%);
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 .location-options-container::-webkit-scrollbar-thumb:hover {

@@ -6,11 +6,11 @@
       <img
         [src]="user.profileImage"
         [alt]="user.firstName + ' ' + user.lastName"
-        class="h-10 w-10 rounded-full object-cover shadow-sm ring-2 ring-white"
+        class="h-10 w-10 rounded-none object-cover shadow-sm ring-2 ring-white"
         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
       />
       <div
-        class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 items-center justify-center text-blue-600 font-bold text-sm shadow-sm"
+        class="h-10 w-10 rounded-none bg-gradient-to-br from-blue-100 to-blue-200 items-center justify-center text-blue-600 font-bold text-sm shadow-sm"
         style="display: none"
       >
         {{ user.firstName?.charAt(0) || "U"
@@ -18,14 +18,14 @@
       </div>
       } @else {
       <div
-        class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-blue-600 font-bold text-sm shadow-sm ring-2 ring-blue-50"
+        class="h-10 w-10 rounded-none bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-blue-600 font-bold text-sm shadow-sm ring-2 ring-blue-50"
       >
         {{ user.firstName?.charAt(0) || "U"
         }}{{ user.lastName?.charAt(0) || "" }}
       </div>
       }
       <span
-        class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-400 ring-2 ring-white"
+        class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-none bg-green-400 ring-2 ring-white"
       ></span>
     </div>
 
@@ -55,7 +55,7 @@
 </td>
 <td class="px-6 py-4 whitespace-nowrap" data-label="Role">
   <span
-    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-100"
+    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-none bg-blue-50 text-blue-700 border border-blue-100"
   >
     {{ user.role || "User" }}
   </span>
@@ -65,7 +65,7 @@
 </td>
 <td class="px-6 py-4 whitespace-nowrap" data-label="Status">
   <span
-    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+    class="inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium bg-green-100 text-green-800"
   >
     Active
   </span>

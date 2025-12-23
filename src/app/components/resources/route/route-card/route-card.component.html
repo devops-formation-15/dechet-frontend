@@ -7,7 +7,7 @@
 <td class="px-6 py-4 whitespace-nowrap" data-label="Vehicle">
   <div class="flex items-center">
     <div
-      class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xs shadow-sm"
+      class="h-8 w-8 rounded-none bg-blue-100 flex items-center justify-center text-blue-600 text-xs shadow-sm"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -45,14 +45,14 @@
     <div *ngIf="route.users && route.users.length > 0" class="flex -space-x-2">
       <div
         *ngFor="let user of route.users.slice(0, 3)"
-        class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-semibold border-2 border-white shadow-sm"
+        class="h-8 w-8 rounded-none bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-semibold border-2 border-white shadow-sm"
         [title]="user.firstName + ' ' + user.lastName"
       >
         {{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}
       </div>
       <div
         *ngIf="route.users.length > 3"
-        class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xs font-semibold border-2 border-white shadow-sm"
+        class="h-8 w-8 rounded-none bg-gray-200 flex items-center justify-center text-gray-600 text-xs font-semibold border-2 border-white shadow-sm"
       >
         +{{ route.users.length - 3 }}
       </div>
@@ -76,7 +76,7 @@
 </td>
 <td class="px-6 py-4 whitespace-nowrap" data-label="Status">
   <span
-    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+    class="inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium"
     [ngClass]="{
       'bg-blue-100 text-blue-800': route.status?.toUpperCase() === 'PLANNED',
       'bg-yellow-100 text-yellow-800':

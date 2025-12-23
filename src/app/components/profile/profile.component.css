@@ -22,7 +22,7 @@
 .profile-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 0;
   object-fit: cover;
 }
 
@@ -32,7 +32,7 @@
 
 .profile-form {
   background: white;
-  border-radius: 16px;
+  border-radius: 0;
   padding: 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -52,7 +52,7 @@
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid #d1d5db;
-  border-radius: 8px;
+  border-radius: 0;
   font-size: 1rem;
 }
 
@@ -75,7 +75,7 @@
 
   .profile-form {
     padding: 1.5rem;
-    border-radius: 12px;
+    border-radius: 0;
   }
 
   .form-group {

@@ -54,7 +54,7 @@
   align-items: center;
   padding: 0.875rem 1rem;
   color: #64748b; /* Slate-500 */
-  border-radius: 12px;
+  border-radius: 0;
   font-weight: 500;
   font-size: 0.9375rem;
   transition: all 0.2s ease;
@@ -94,7 +94,7 @@
   align-items: center;
   padding: 0.75rem;
   background: #f8fafc;
-  border-radius: 12px;
+  border-radius: 0;
   border: 1px solid #f1f5f9;
 }
 
@@ -102,7 +102,7 @@
   width: 2.25rem;
   height: 2.25rem;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 0;
   background: #dcfce7; /* Green-100 */
   color: #16a34a; /* Green-600 */
   display: flex;

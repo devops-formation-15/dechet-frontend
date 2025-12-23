@@ -1,7 +1,7 @@
 <td class="px-6 py-4" data-label="Subject">
   <div class="flex items-center">
     <div
-      class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shadow-sm"
+      class="h-10 w-10 rounded-none bg-blue-100 flex items-center justify-center text-blue-600 shadow-sm"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@
 </td>
 <td class="px-6 py-4 whitespace-nowrap" data-label="Type">
   <span
-    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-none"
     [ngClass]="{
       'bg-red-50 text-red-700 border border-red-100':
         notification.notificationType === 'incident_notification',

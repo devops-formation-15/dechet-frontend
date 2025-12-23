@@ -37,7 +37,7 @@
 .map-control-btn {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 0.75rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -87,7 +87,7 @@
 
   .map-control-btn {
     padding: 0.625rem;
-    border-radius: 6px;
+    border-radius: 0;
   }
 
   /* Optimize map info panels */
@@ -105,7 +105,7 @@
     max-height: 50vh;
     overflow-y: auto;
     background: white;
-    border-radius: 16px 16px 0 0;
+    border-radius: 0;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
     padding: 1rem;
     z-index: 100; /* Below mobile menu but above map */

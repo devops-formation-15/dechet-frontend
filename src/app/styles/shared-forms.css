@@ -44,7 +44,7 @@ select.form-input,
   height: 40px;
   font-size: 1.1rem;
   background: #f3f4f6;
-  border-radius: 8px;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,7 +73,7 @@ select.form-input,
   background: #ffffff;
   border: 1px solid #e5e7eb;
   padding: 0.5rem 0.75rem;
-  border-radius: 8px;
+  border-radius: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -233,7 +233,7 @@ select.form-select option:first-child,
   color: #ffffff;
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   border: none;
-  border-radius: 12px;
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
@@ -306,7 +306,7 @@ select.form-select option:first-child,
   color: #6b7280;
   background: #f3f4f6;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 140px;
