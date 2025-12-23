@@ -245,21 +245,19 @@
     <!-- Users View -->
     <div
       *ngIf="activeTab === 'users' && !loading"
-      class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+      class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
     >
-      <div class="overflow-x-auto">
-        <app-users-list
-          [users]="users"
-          (onEditUser)="editUser($event)"
-          (onDeleteUser)="deleteUser($event)"
-        ></app-users-list>
-      </div>
+      <app-users-list
+        [users]="users"
+        (onEditUser)="editUser($event)"
+        (onDeleteUser)="deleteUser($event)"
+      ></app-users-list>
     </div>
 
     <!-- Containers View -->
     <div
       *ngIf="activeTab === 'containers' && !loading"
-      class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+      class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
     >
       <app-containers-list
         [containers]="containers"
@@ -374,7 +372,7 @@
 
       <!-- Pickup Points List -->
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
       >
         <div class="p-6 border-b border-gray-100">
           <h3 class="text-lg font-bold text-gray-800">
@@ -396,7 +394,7 @@
     <!-- Vehicles View -->
     <div
       *ngIf="activeTab === 'vehicles' && !loading"
-      class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+      class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
     >
       <div class="p-6 border-b border-gray-100">
         <h3 class="text-lg font-bold text-gray-800">Fleet Management</h3>
@@ -415,7 +413,7 @@
     <!-- Incidents View -->
     <div
       *ngIf="activeTab === 'incidents' && !loading"
-      class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+      class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
     >
       <div class="p-6 border-b border-gray-100">
         <h3 class="text-lg font-bold text-gray-800">Incident Reports</h3>
@@ -434,7 +432,7 @@
     <!-- Notifications View -->
     <div
       *ngIf="activeTab === 'notifications' && !loading"
-      class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+      class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
     >
       <div class="p-6 border-b border-gray-100">
         <h3 class="text-lg font-bold text-gray-800">System Notifications</h3>
@@ -453,7 +451,7 @@
     <!-- Routes View -->
     <div
       *ngIf="activeTab === 'routes' && !loading"
-      class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+      class="bg-white rounded-2xl shadow-sm border border-gray-100 table-container"
     >
       <div class="p-6 border-b border-gray-100">
         <h3 class="text-lg font-bold text-gray-800">Collection Routes</h3>
