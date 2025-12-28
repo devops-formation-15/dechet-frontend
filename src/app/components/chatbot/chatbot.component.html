@@ -1,0 +1,211 @@
+<div class="chatbot-container" [class.open]="isOpen">
+  <!-- Floating Chat Button (Toggles Chat) -->
+  <button
+    *ngIf="!isOpen"
+    class="chat-button"
+    (click)="toggleChat()"
+    aria-label="Open chat"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+      />
+    </svg>
+    <span class="pulse-ring"></span>
+  </button>
+
+  <!-- Chat Window -->
+  <div *ngIf="isOpen" class="chat-window" [class.minimized]="isMinimized">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-content">
+        <div class="bot-avatar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            />
+          </svg>
+        </div>
+        <div class="header-text">
+          <h3>Déchet Assistant</h3>
+          <p class="status">
+            <span class="status-dot"></span>
+            Online
+          </p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button
+          (click)="toggleMinimize()"
+          class="icon-button"
+          aria-label="Minimize"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M20 12H4"
+            />
+          </svg>
+        </button>
+        <button (click)="closeChat()" class="icon-button" aria-label="Close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div #chatMessages class="chat-messages">
+      <div
+        *ngFor="let message of messages"
+        class="message"
+        [class.user-message]="message.role === 'user'"
+        [class.assistant-message]="message.role === 'assistant'"
+        [class.employee-context]="message.user_type === 'employee'"
+      >
+        <div class="message-avatar" *ngIf="message.role === 'assistant'">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+        </div>
+        <div class="message-content">
+          <p>{{ message.content }}</p>
+          <span class="message-time">{{
+            message.timestamp | date : "shortTime"
+          }}</span>
+        </div>
+        <div class="message-avatar" *ngIf="message.role === 'user'">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Loading indicator -->
+      <div *ngIf="isLoading" class="message assistant-message">
+        <div class="message-avatar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+        </div>
+        <div class="message-content">
+          <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions (Only shown if few messages) -->
+    <div class="quick-actions" *ngIf="messages.length <= 2">
+      <p class="quick-actions-title">Quick suggestions:</p>
+      <div class="action-buttons">
+        <button
+          *ngFor="let action of quickActions"
+          class="action-button"
+          (click)="useQuickAction(action)"
+        >
+          {{ action }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="chat-input" *ngIf="!isMinimized">
+      <input
+        type="text"
+        [(ngModel)]="userInput"
+        (keyup.enter)="sendMessage()"
+        [disabled]="isLoading"
+        placeholder="Ask about waste management..."
+        class="input-field"
+      />
+      <button
+        (click)="sendMessage()"
+        [disabled]="!userInput.trim() || isLoading"
+        class="send-button"
+        aria-label="Send message"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
