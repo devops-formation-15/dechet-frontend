@@ -10,7 +10,7 @@ ENV API_URL=${API_URL}
 ENV KEYCLOAK_URL=${KEYCLOAK_URL}
 
 COPY package*.json ./
-RUN npm ci --force
+RUN npm install --force
 
 COPY . .
 RUN npm run build -- --configuration=${ENVIRONMENT}
