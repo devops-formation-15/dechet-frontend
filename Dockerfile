@@ -1,6 +1,6 @@
 FROM node:20 AS build
 WORKDIR /app
-ARG CHATBOT_URL=https://dechet.46.lebondeveloppeur.net/chat
+ARG CHATBOT_URL=https://dechet.46.lebondeveloppeur.net
 ARG ENVIRONMENT=production
 ARG API_URL=https://dechet.46.lebondeveloppeur.net/api
 ARG KEYCLOAK_URL=https://dechet.46.lebondeveloppeur.net

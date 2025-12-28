@@ -8,5 +8,5 @@ export const environment = {
   KEYCLOAK_URL: 'https://dechet.46.lebondeveloppeur.net',     // ← HTTPS + /auth
   KEYCLOAK_REALM: 'dechetrealm',
   KEYCLOAK_CLIENT_ID: 'dechet-frontend',
-  CHATBOT_URL: 'https://dechet.46.lebondeveloppeur.net/chat'
+  CHATBOT_URL: 'https://dechet.46.lebondeveloppeur.net'
 };
