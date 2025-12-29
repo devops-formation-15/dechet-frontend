@@ -25,10 +25,58 @@ export class ChatbotService {
     constructor(private http: HttpClient) { }
 
     /**
-     * Send a message to the chatbot
+     * Send a message to the chatbot (Standard JSON)
      */
     sendMessage(message: string): Observable<ChatResponse> {
         return this.http.post<ChatResponse>(`${this.apiUrl}/chat`, { message });
+    }
+
+    /**
+     * Send a message to the chatbot and return a stream (SSE)
+     */
+    async *sendStreamingMessage(message: string): AsyncIterable<any> {
+        const response = await fetch(`${this.apiUrl}/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, stream: true })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const reader = response.body?.getReader();
+        if (!reader) {
+            throw new Error('Response body is empty or not readable');
+        }
+
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+
+            // SSE format: "data: <json>\n\n"
+            const lines = buffer.split('\n\n');
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                    const data = line.slice(6);
+                    if (data === '[DONE]') {
+                        return;
+                    }
+                    try {
+                        yield JSON.parse(data);
+                    } catch (e) {
+                        console.error('Error parsing SSE data:', e, 'Line:', line);
+                    }
+                }
+            }
+        }
     }
 
     /**

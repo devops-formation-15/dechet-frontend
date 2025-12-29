@@ -60,7 +60,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         this.isOpen = false;
     }
 
-    sendMessage(): void {
+    async sendMessage(): Promise<void> {
         if (!this.userInput.trim() || this.isLoading) return;
 
         const userMessage = this.userInput.trim();
@@ -76,29 +76,33 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         this.scrollToBottom();
         this.isLoading = true;
 
-        // Send to chatbot API
-        this.subscription = this.chatbotService.sendMessage(userMessage).subscribe({
-            next: (response) => {
-                this.messages.push({
-                    role: 'assistant',
-                    content: response.response,
-                    user_type: response.user_type,
-                    timestamp: new Date()
-                });
-                this.scrollToBottom();
-                this.isLoading = false;
-            },
-            error: (error) => {
-                console.error('Chat error:', error);
-                this.messages.push({
-                    role: 'assistant',
-                    content: 'Sorry, I encountered an error. Is the chatbot service running?',
-                    timestamp: new Date()
-                });
-                this.scrollToBottom();
-                this.isLoading = false;
+        // Create a placeholder for the assistant response
+        const assistantMessage: ChatMessage = {
+            role: 'assistant',
+            content: '',
+            timestamp: new Date()
+        };
+        this.messages.push(assistantMessage);
+
+        try {
+            // Send to chatbot API and consume stream
+            for await (const chunk of this.chatbotService.sendStreamingMessage(userMessage)) {
+                if (chunk.type === 'metadata') {
+                    assistantMessage.user_type = chunk.user_type;
+                } else if (chunk.type === 'token') {
+                    assistantMessage.content += chunk.token;
+                    this.scrollToBottom();
+                } else if (chunk.type === 'error') {
+                    assistantMessage.content = `Error: ${chunk.details}`;
+                }
             }
-        });
+        } catch (error) {
+            console.error('Chat error:', error);
+            assistantMessage.content = 'Sorry, I encountered an error. Is the chatbot service running?';
+        } finally {
+            this.isLoading = false;
+            this.scrollToBottom();
+        }
     }
 
     useQuickAction(action: string): void {
